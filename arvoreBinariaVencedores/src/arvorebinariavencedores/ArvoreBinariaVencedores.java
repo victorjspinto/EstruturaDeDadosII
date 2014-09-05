@@ -5,6 +5,7 @@
  */
 package arvorebinariavencedores;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,24 +18,21 @@ public class ArvoreBinariaVencedores
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException, TreeEndException
     {
         ArrayList<Cliente> clientes = new ArrayList<>();
 
-        clientes.add(new Cliente(1, "a", "b"));
-        clientes.add(new Cliente(2, "b", "c"));
-        clientes.add(new Cliente(3, "c", "d"));
-        clientes.add(new Cliente(4, "d", "e"));
-        clientes.add(new Cliente(5, "e", "f"));
-        clientes.add(new Cliente(6, "f", "g"));
-//        clientes.add(new Cliente(1, "g", "h"));
-//        clientes.add(new Cliente(1, "h", "i"));
-//        clientes.add(new Cliente(1, "i", "j"));
-//        clientes.add(new Cliente(1, "j", "k"));
+        clientes.add(new Cliente("0.txt"));
+        clientes.add(new Cliente("1.txt"));
+        clientes.add(new Cliente("2.txt"));
+        clientes.add(new Cliente("3.txt"));
+        clientes.add(new Cliente("4.txt"));
 
-        Tree t = new Tree();
-        Cliente c = t.buildBottomUp(clientes);
-
+        Tree t = new Tree(clientes);
+        System.out.println(t.intercala().codCliente);
+        System.out.println(t.intercala().codCliente);
+        System.out.println(t.intercala().codCliente);
+        System.out.println(t.intercala().codCliente);
+        System.out.println(t.intercala().codCliente);
     }
-
 }

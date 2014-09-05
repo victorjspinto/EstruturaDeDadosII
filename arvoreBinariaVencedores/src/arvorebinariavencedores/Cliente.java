@@ -1,9 +1,12 @@
 package arvorebinariavencedores;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,16 +18,22 @@ import java.util.ArrayList;
  */
 public class Cliente implements Entidade, Cloneable, Serializable
 {
-
     public int codCliente;
     public String nome;
     public String dataNascimento;
     public Cliente leftCliente;
     public Cliente rightCliente;
+    DataInputStream d;
 
     /*
      * Construtor do Cliente
      */
+    public Cliente(String filename) throws FileNotFoundException, IOException
+    {
+        d = new DataInputStream(new BufferedInputStream(new FileInputStream(filename)));
+        this.le();
+    }
+
     public Cliente(int codCliente, String nome, String dataNascimento)
     {
         this.codCliente = codCliente;
@@ -51,9 +60,15 @@ public class Cliente implements Entidade, Cloneable, Serializable
      * @param in Arquivo de onde os dados serão lidos
      * @return instância de Cliente populada com os dados lidos
      */
-    public static Cliente le(DataInputStream in) throws IOException
+//    public static Cliente le(DataInputStream in) throws IOException
+//    {
+//        return new Cliente(in.readInt(), in.readUTF(), in.readUTF());
+//    }
+    public void le() throws IOException
     {
-        return new Cliente(in.readInt(), in.readUTF(), in.readUTF());
+        this.codCliente = d.readInt();
+        this.nome = d.readUTF();
+        this.dataNascimento = d.readUTF();
     }
 
     /**
@@ -124,25 +139,5 @@ public class Cliente implements Entidade, Cloneable, Serializable
             }
         }
         return i;
-    }
-
-    public Cliente deepCopy()
-    {
-        try
-        {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(this);
-
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bais);
-            return (Cliente) ois.readObject();
-        } catch (IOException e)
-        {
-            return null;
-        } catch (ClassNotFoundException e)
-        {
-            return null;
-        }
     }
 }
