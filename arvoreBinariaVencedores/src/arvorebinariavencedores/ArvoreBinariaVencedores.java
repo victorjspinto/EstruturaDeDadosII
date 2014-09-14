@@ -27,7 +27,7 @@ public class ArvoreBinariaVencedores
         clientes.add(new Cliente("2.txt"));
         clientes.add(new Cliente("3.txt"));
         clientes.add(new Cliente("4.txt"));
-
+        
         Tree t = new Tree(clientes);
         System.out.println(t.intercala().codCliente);
         System.out.println(t.intercala().codCliente);
